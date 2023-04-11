@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.xuexiang.xui.widget.actionbar.TitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:background="@color/xui_config_color_titlebar"
+        app:tb_actionPadding="20dp"
+        app:tb_barHeight="65dp"
+        app:tb_dividerColor="#FFF"
+        app:tb_leftImageResource="@drawable/setting48"
+        app:tb_sideTextPadding="20dp"
+        app:tb_subTitleText="今天你喝水了吗"
+        app:tb_titleText="DunDun"
+        />
+
+</LinearLayout>
