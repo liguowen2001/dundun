@@ -10,227 +10,284 @@
         android:id="@+id/title"
         layout="@layout/title"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="0dp" />
 
+    <!--    第一行-->
     <ImageView
         android:id="@+id/glass"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+
+        android:layout_marginTop="20dp"
+        android:gravity="center"
         android:src="@drawable/glass"
+        app:layout_constraintEnd_toStartOf="@id/juice"
+        app:layout_constraintHorizontal_chainStyle="spread"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintTop_toBottomOf="@id/title" />
 
 
     <ImageView
         android:id="@+id/juice"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
+
+        android:gravity="center"
         android:src="@drawable/juice"
-        app:layout_constraintStart_toEndOf="@+id/glass"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintEnd_toStartOf="@id/coffee"
+        app:layout_constraintStart_toEndOf="@id/glass"
+
+
+        app:layout_constraintTop_toBottomOf="@id/title" />
 
     <ImageView
         android:id="@+id/coffee"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
+
+        android:gravity="center"
         android:src="@drawable/coffee"
-        app:layout_constraintStart_toEndOf="@+id/juice"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintEnd_toStartOf="@id/beer"
+        app:layout_constraintStart_toEndOf="@id/juice"
+
+        app:layout_constraintTop_toBottomOf="@id/title" />
 
     <ImageView
         android:id="@+id/beer"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
         android:src="@drawable/beer"
-        app:layout_constraintStart_toEndOf="@+id/coffee"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/coffee"
+        app:layout_constraintTop_toBottomOf="@id/title" />
 
-    <ImageView
-        android:id="@+id/milk"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="56dp"
-        android:src="@drawable/milk"
-        app:layout_constraintStart_toEndOf="@+id/steamwater"
-        app:layout_constraintTop_toBottomOf="@+id/coffee" />
-
-    <ImageView
-        android:id="@+id/firewater"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="56dp"
-        android:src="@drawable/firewater"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/glass" />
-
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="63dp"
-        android:layout_marginTop="12dp"
-        android:text="鸡尾酒"
-        app:layout_constraintStart_toEndOf="@+id/textView16"
-        app:layout_constraintTop_toBottomOf="@+id/filp" />
-
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="57dp"
-        android:layout_marginTop="12dp"
-        android:text="汽水"
-        app:layout_constraintStart_toEndOf="@+id/textView14"
-        app:layout_constraintTop_toBottomOf="@+id/steamwater" />
-
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="12dp"
-        android:text="牛奶"
-        app:layout_constraintStart_toEndOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/milk" />
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="51dp"
-        android:layout_marginTop="12dp"
-        android:text="烈酒"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/firewater" />
-
-    <ImageView
-        android:id="@+id/steamwater"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="56dp"
-        android:src="@drawable/steamwater"
-        app:layout_constraintStart_toEndOf="@+id/firewater"
-        app:layout_constraintTop_toBottomOf="@+id/juice" />
-
-    <ImageView
-        android:id="@+id/filp"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="56dp"
-        android:src="@drawable/flip"
-        app:layout_constraintStart_toEndOf="@+id/milk"
-        app:layout_constraintTop_toBottomOf="@+id/beer" />
-
+    <!--第一行文字   -->
     <TextView
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="51dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="10dp"
+        android:width="60dp"
+        android:gravity="center"
         android:text="水"
+        app:layout_constraintEnd_toStartOf="@id/textView11"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/glass" />
+
+        app:layout_constraintTop_toBottomOf="@id/glass" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="71dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="10dp"
+
+        android:width="60dp"
+        android:gravity="center"
         android:text="果汁"
-        app:layout_constraintStart_toEndOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/juice" />
+        app:layout_constraintEnd_toStartOf="@id/textView12"
+        app:layout_constraintStart_toEndOf="@id/textView10"
+        app:layout_constraintTop_toBottomOf="@id/glass" />
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="10dp"
+
+        android:width="60dp"
+        android:gravity="center"
         android:text="咖啡"
+        app:layout_constraintEnd_toStartOf="@id/textView13"
         app:layout_constraintStart_toEndOf="@+id/textView11"
-        app:layout_constraintTop_toBottomOf="@+id/coffee" />
+        app:layout_constraintTop_toBottomOf="@id/glass" />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="10dp"
+        android:width="60dp"
+        android:gravity="center"
         android:text="啤酒"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView12"
-        app:layout_constraintTop_toBottomOf="@+id/beer" />
+        app:layout_constraintTop_toBottomOf="@id/glass" />
+
+    <!--第二行图标-->
+
+    <ImageView
+        android:id="@+id/firewater"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:src="@drawable/firewater"
+        app:layout_constraintEnd_toStartOf="@id/steamwater"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/glass"
+
+        />
+
+    <ImageView
+        android:id="@+id/steamwater"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:src="@drawable/steamwater"
+        app:layout_constraintEnd_toStartOf="@id/milk"
+        app:layout_constraintStart_toEndOf="@id/firewater"
+        app:layout_constraintTop_toBottomOf="@id/glass" />
+
+    <ImageView
+        android:id="@+id/milk"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="60dp"
+
+        android:gravity="center"
+        android:src="@drawable/milk"
+        app:layout_constraintEnd_toStartOf="@id/filp"
+        app:layout_constraintStart_toEndOf="@id/steamwater"
+        app:layout_constraintTop_toBottomOf="@id/glass" />
+
+    <ImageView
+        android:id="@+id/filp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/flip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/milk"
+
+        app:layout_constraintTop_toBottomOf="@id/glass" />
+
+    <!--    第二行文字-->
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:width="60dp"
+        android:gravity="center"
+        android:text="烈酒"
+        app:layout_constraintEnd_toStartOf="@id/textView15"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firewater" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:width="60dp"
+
+        android:gravity="center"
+        android:text="汽水"
+        app:layout_constraintEnd_toStartOf="@id/textView16"
+        app:layout_constraintStart_toEndOf="@id/textView14"
+        app:layout_constraintTop_toBottomOf="@id/firewater" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:width="60dp"
+
+        android:gravity="center"
+        android:text="牛奶"
+        app:layout_constraintEnd_toStartOf="@id/textView17"
+        app:layout_constraintStart_toEndOf="@id/textView15"
+        app:layout_constraintTop_toBottomOf="@+id/firewater" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:width="60dp"
+        android:gravity="center"
+        android:text="鸡尾酒"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/textView16"
+        app:layout_constraintTop_toBottomOf="@id/firewater" />
 
 
     <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
         android:id="@+id/waterVolume"
-        android:layout_width="100dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="155dp"
-        android:layout_marginTop="37dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="270dp"
+        android:layout_marginEnd="150dp"
+        android:gravity="center"
         android:hint="饮水量(ml)"
         android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintWidth_default="spread"
         app:met_floatingLabel="normal"
         app:met_hideUnderline="true" />
 
+    <!--    按钮-->
     <com.xuexiang.xui.widget.button.roundbutton.RoundButton
         android:id="@+id/roundButton100"
         style="@style/RoundButton.Auto"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="134dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
         android:text="100ml"
         android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@id/roundButton"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@id/waterVolume"
         app:rb_radius="13dp" />
 
     <com.xuexiang.xui.widget.button.roundbutton.RoundButton
         android:id="@+id/roundButton"
         style="@style/RoundButton.Auto"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
         android:text="200ml"
         android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/roundButton100"
-        app:layout_constraintTop_toBottomOf="@+id/remindText"
+        app:layout_constraintEnd_toStartOf="@id/roundButton300"
+        app:layout_constraintStart_toEndOf="@id/roundButton100"
+        app:layout_constraintTop_toBottomOf="@id/waterVolume"
         app:rb_radius="13dp" />
 
     <com.xuexiang.xui.widget.button.roundbutton.RoundButton
         android:id="@+id/roundButton300"
         style="@style/RoundButton.Auto"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
         android:text="300ml"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toStartOf="@+id/roundButton500"
-        app:layout_constraintTop_toBottomOf="@+id/remindText"
+        app:layout_constraintEnd_toStartOf="@id/roundButton500"
+        app:layout_constraintStart_toEndOf="@id/roundButton"
+        app:layout_constraintTop_toBottomOf="@id/waterVolume"
         app:rb_radius="13dp" />
 
     <com.xuexiang.xui.widget.button.roundbutton.RoundButton
         android:id="@+id/roundButton500"
         style="@style/RoundButton.Auto"
-        android:layout_marginTop="134dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
         android:text="500ml"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView17"
+        app:layout_constraintStart_toEndOf="@id/roundButton300"
+        app:layout_constraintTop_toBottomOf="@id/waterVolume"
         app:rb_radius="13dp" />
 
     <TextView
@@ -238,7 +295,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="128dp"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="10dp"
         android:text="饮酒后需适量增加饮水量"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
@@ -257,7 +314,6 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_default="spread"
         app:rb_backgroundColor="@color/colorPrimary"
