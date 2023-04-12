@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 体重和运动强度选择
+ */
 public class BaseInformationSelect extends AppCompatActivity {
 
     private String TAG = "BaseInformationSelect";

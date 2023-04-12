@@ -20,6 +20,9 @@ import com.xuexiang.xui.widget.imageview.RadiusImageView;
 
 import java.util.Date;
 
+/**
+ * 添加喝水
+ */
 public class WaterActivity extends AppCompatActivity {
 
     private final String TAG = "WaterActivity";

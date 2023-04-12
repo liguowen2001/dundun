@@ -1,23 +1,22 @@
 package edu.hebut.dundun;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.icu.text.CaseMap;
 import android.os.Bundle;
-import android.text.method.CharacterPickerDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xuexiang.xui.widget.actionbar.TitleBar;
-import com.xuexiang.xui.widget.actionbar.TitleUtils;
 
 import java.util.Date;
 
+/**
+ * 喝水页面（主页面）
+ */
 public class DrinkActivity extends BaseActivity {
 
     private String TAG = "DrinkActivity";

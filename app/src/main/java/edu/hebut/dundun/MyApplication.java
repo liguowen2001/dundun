@@ -4,6 +4,10 @@ import android.app.Application;
 
 import com.xuexiang.xui.XUI;
 
+/**
+ * 用于引入XUI
+ * 不用管
+ */
 public class MyApplication extends Application {
     @Override
     public void onCreate() {

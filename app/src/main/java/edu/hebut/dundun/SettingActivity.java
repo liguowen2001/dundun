@@ -21,6 +21,9 @@ import com.xuexiang.xui.widget.actionbar.TitleBar;
 
 import java.util.Objects;
 
+/**
+ * 设置
+ */
 
 public class SettingActivity extends AppCompatActivity {
 

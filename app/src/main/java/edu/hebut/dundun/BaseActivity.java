@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.xuexiang.xui.widget.actionbar.TitleBar;
 
+/**
+ * 没啥用
+ */
 public class BaseActivity extends AppCompatActivity {
 
     @Override

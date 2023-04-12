@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".MainActivity">
+    >
 
     <include
         android:id="@+id/title"
@@ -61,16 +61,25 @@
         app:wheel_itemTextColorSelected="#FF0081FF"
         app:wheel_itemTextSize="20sp" />
 
-    <Button
+    <com.xuexiang.xui.widget.button.roundbutton.RoundButton
         android:id="@+id/submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        style="@style/RoundButton.Auto"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="108dp"
         android:text="提交"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/wheelView" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_default="spread"
+        app:rb_backgroundColor="@color/menu_white_normal"
+        app:rb_borderColor="@color/colorPrimary"
+        app:rb_radius="15dp" />
 
 
 
