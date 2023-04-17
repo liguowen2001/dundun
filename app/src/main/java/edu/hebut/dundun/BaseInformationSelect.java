@@ -3,8 +3,10 @@ package edu.hebut.dundun;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -103,11 +105,12 @@ public class BaseInformationSelect extends AppCompatActivity {
      */
     private void saveData(float weight, int exercise) {
         Date date = new Date();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat=new SimpleDateFormat("YYYY-MM-dd");
         SharedPreferences.Editor editor = getSharedPreferences("dundun_data",
                 MODE_PRIVATE).edit();
         editor.putFloat("weight", weight);
         editor.putInt("exercise", exercise);
-        editor.putInt("day", date.getDay());
+        editor.putString("day", dateFormat.format(date));
         editor.apply();
     }
 

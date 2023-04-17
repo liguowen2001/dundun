@@ -26,6 +26,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    dataBinding {
+        enabled = true;
+    }
 }
 
 dependencies {
@@ -51,5 +55,10 @@ dependencies {
     implementation 'com.github.xuexiangjys.XUtil:xutil-sub:2.0.0'
 
     implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    //数据解析
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    //Android SQLite操作框架
+    implementation 'org.litepal.guolindev:core:3.1.1'
 
 }

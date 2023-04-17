@@ -1,8 +1,12 @@
 package edu.hebut.dundun;
 
+
 import android.app.Application;
 
 import com.xuexiang.xui.XUI;
+
+import org.litepal.LitePal;
+import org.litepal.LitePalApplication;
 
 /**
  * 用于引入XUI
@@ -14,5 +18,6 @@ public class MyApplication extends Application {
         super.onCreate();
         XUI.init(this);
         XUI.debug(true);
+        LitePal.initialize(this);
     }
 }

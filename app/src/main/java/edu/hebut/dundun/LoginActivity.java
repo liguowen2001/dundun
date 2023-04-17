@@ -6,12 +6,15 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.ColorSpace;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xuexiang.xui.widget.button.roundbutton.RoundButton;
+
+import org.litepal.tablemanager.Connector;
 
 /**
  * 登录
@@ -25,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         onSignUpClick();
         onLoginClick();
         onPassClick();
+        createDataBase();
     }
 
     /**
@@ -95,5 +99,11 @@ public class LoginActivity extends AppCompatActivity {
         alertDialog2.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#96CBFD"));
         alertDialog2.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#96CBFD"));
 
+    }
+
+    private void createDataBase() {
+        Connector.getDatabase();
+//        Intent intent = new Intent(this,Test.class);
+//        startActivity(intent);
     }
 }

@@ -13,6 +13,11 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
             "title text," +
             "remindText text )";
 
+    public static final String CREATE_WATER_INTAKE = "create table water_intake(" +
+            "id integer primary key autoincrement," +
+            "date interger," +
+            "value real )";
+
     private Context mContext;
 
     public MyDataBaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory,
@@ -24,6 +29,7 @@ public class MyDataBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_REMIND_TEXT);
+        db.execSQL(CREATE_WATER_INTAKE);
         Log.d(TAG, "create table");
     }
 

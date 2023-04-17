@@ -2,9 +2,11 @@ package edu.hebut.dundun;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,12 +51,13 @@ public class WaterActivity extends AppCompatActivity {
                 SharedPreferences preferences = getSharedPreferences("dundun_data", MODE_PRIVATE);
                 SharedPreferences.Editor editor = getSharedPreferences("dundun_data",
                         MODE_PRIVATE).edit();
-                int day = preferences.getInt("day", 0);
+                String day = preferences.getString("day", "");
                 Date date = new Date();
-                if (day == date.getDay()) {
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat=new SimpleDateFormat("YYYY-MM-dd");
+                if (day.equals(dateFormat.format(date))) {
                     haveDrunk += preferences.getFloat("haveDrunk", 0);
                 } else {
-                    editor.putInt("day", date.getDay());
+                    editor.putString("day", dateFormat.format(date));
                 }
                 editor.putFloat("haveDrunk", haveDrunk);
                 editor.apply();

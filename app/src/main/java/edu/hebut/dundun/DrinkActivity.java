@@ -2,8 +2,12 @@ package edu.hebut.dundun;
 
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +17,9 @@ import android.widget.TextView;
 import com.xuexiang.xui.widget.actionbar.TitleBar;
 
 import java.util.Date;
+import java.util.Objects;
+
+import edu.hebut.dundun.service.RemindService;
 
 /**
  * 喝水页面（主页面）
@@ -28,9 +35,9 @@ public class DrinkActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drink);
         initView();
-        //onNextRemindClick();
         onCubClick();
         onTitleClick();
+        startService();
     }
 
     /**
@@ -43,11 +50,12 @@ public class DrinkActivity extends BaseActivity {
 
         float weight = preferences.getFloat("weight", 0);
         int exercise = preferences.getInt("exercise", 0);
-        int day = preferences.getInt("day", 0);
+        String day = preferences.getString("day", "0");
         float haveDrunk = preferences.getFloat("haveDrunk", 0);
         Log.d(TAG, "haveDrunk" + haveDrunk);
         Date date = new Date();
-        if (date.getDay() != day) {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+        if (!Objects.equals(dateFormat.format(date), day)) {
             haveDrunk = 0;
             editor.putFloat("haveDrunk", 0);
             editor.apply();
@@ -71,20 +79,6 @@ public class DrinkActivity extends BaseActivity {
         targetWaterTextView.setText(this.targetWater.toString());
     }
 
-    /**
-     * 绑定点击
-     */
-//    private void onNextRemindClick() {
-//        TextView nextRemind = findViewById(R.id.nextRemind);
-//        nextRemind.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.d(TAG, "setting");
-//                Intent intent = new Intent(DrinkActivity.this, SettingActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//    }
     private void onCubClick() {
         ImageView image = findViewById(R.id.cub);
         image.setOnClickListener(new View.OnClickListener() {
@@ -109,8 +103,8 @@ public class DrinkActivity extends BaseActivity {
         titleBar.addAction(new TitleBar.ImageAction(R.drawable.pen32) {
             @Override
             public void performAction(View view) {
-                Log.d(TAG,"clickPen");
-                Intent intent = new Intent(DrinkActivity.this,BaseInformationSelect.class);
+                Log.d(TAG, "clickPen");
+                Intent intent = new Intent(DrinkActivity.this, BaseInformationSelect.class);
                 startActivity(intent);
             }
         });
@@ -121,6 +115,12 @@ public class DrinkActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @SuppressLint("ShortAlarm")
+    private void startService() {
+        Intent intent = new Intent(this, RemindService.class);
+        startService(intent);
     }
 
 }
