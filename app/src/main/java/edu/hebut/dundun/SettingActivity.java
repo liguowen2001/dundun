@@ -42,6 +42,7 @@ public class SettingActivity extends AppCompatActivity {
         this.onRemindItemClick();
         onTitleClick();
         onSetRemindTextClick();
+        onStatisticsClick();
     }
 
     /**
@@ -279,6 +280,17 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SettingActivity.this,RemindTextSettingActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void onStatisticsClick(){
+        TextView textView = findViewById(R.id.textView7);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this,StatisticsActivity.class);
                 startActivity(intent);
             }
         });

@@ -1,6 +1,8 @@
 package edu.hebut.dundun.entity;
 
-public class RemindText {
+import org.litepal.crud.LitePalSupport;
+
+public class RemindText extends LitePalSupport {
     private Long id;
     private String title;
     private String text;

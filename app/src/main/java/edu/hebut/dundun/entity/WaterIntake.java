@@ -5,8 +5,18 @@ import org.litepal.crud.LitePalSupport;
 
 public class WaterIntake extends LitePalSupport {
     private int id;
+    /**
+     * 日期
+     */
     private String date;
-    private Double value;
+    /**
+     * 饮水量
+     */
+    private float value;
+    /**
+     * 喝水次数
+     */
+    private int drinkTimes;
 
     public int getId() {
         return id;
@@ -24,11 +34,26 @@ public class WaterIntake extends LitePalSupport {
         this.date = date;
     }
 
-    public Double getValue() {
+    public float getValue() {
         return value;
     }
 
-    public void setValue(Double value) {
+    public void setValue(float value) {
         this.value = value;
+    }
+
+    public int getDrinkTimes() {
+        return drinkTimes;
+    }
+
+    public void setDrinkTimes(int drinkTimes) {
+        this.drinkTimes = drinkTimes;
+    }
+
+    public String getSimpleDate() {
+        String[] temp;
+        temp = date.split("-");
+        String simpleDate = temp[2] + "日";
+        return simpleDate;
     }
 }

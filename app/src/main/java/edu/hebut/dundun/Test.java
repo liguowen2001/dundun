@@ -16,7 +16,8 @@ import java.util.List;
 import edu.hebut.dundun.entity.WaterIntake;
 
 public class Test extends AppCompatActivity {
-    private String TAG  = "Test";
+    private String TAG = "Test";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,16 +49,16 @@ public class Test extends AppCompatActivity {
 
     private void add() {
         WaterIntake waterIntake = new WaterIntake();
-        waterIntake.setDate(1+"");
-        waterIntake.setValue(200.0);
+        waterIntake.setDate(1 + "");
+        waterIntake.setValue(200);
         waterIntake.save();
-        Log.d(TAG,"add");
+        Log.d(TAG, "add");
     }
 
     private void show() {
         List<WaterIntake> list = LitePal.findAll(WaterIntake.class);
-        for (int i = 0; i<list.size();i++){
-            Log.d(TAG,list.get(i).getId()+"");
+        for (int i = 0; i < list.size(); i++) {
+            Log.d(TAG, list.get(i).getId() + "");
         }
     }
 }

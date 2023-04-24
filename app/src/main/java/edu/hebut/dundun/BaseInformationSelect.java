@@ -105,12 +105,13 @@ public class BaseInformationSelect extends AppCompatActivity {
      */
     private void saveData(float weight, int exercise) {
         Date date = new Date();
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat=new SimpleDateFormat("YYYY-MM-dd");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
         SharedPreferences.Editor editor = getSharedPreferences("dundun_data",
                 MODE_PRIVATE).edit();
         editor.putFloat("weight", weight);
         editor.putInt("exercise", exercise);
         editor.putString("day", dateFormat.format(date));
+        editor.putFloat("drinkTarget", getDrinkTarget(weight, exercise));
         editor.apply();
     }
 
@@ -123,5 +124,16 @@ public class BaseInformationSelect extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    /**
+     * 计算饮水量
+     *
+     * @param weight   体重
+     * @param exercise 运动量
+     * @return 饮水量
+     */
+    private float getDrinkTarget(float weight, int exercise) {
+        return weight * 30 * (1 + (float) exercise * 5 / 100);
     }
 }

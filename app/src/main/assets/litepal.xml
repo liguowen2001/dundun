@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <litepal>
     <dbname value="DunDun.db" />
-    <version value="3" />
+    <version value="5" />
     <list>
         <mapping class="edu.hebut.dundun.entity.WaterIntake" />
+        <mapping class="edu.hebut.dundun.entity.RemindText" />
     </list>
 </litepal>

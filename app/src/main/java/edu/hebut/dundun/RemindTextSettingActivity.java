@@ -4,27 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.xuexiang.xui.widget.actionbar.TitleBar;
+
+import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.hebut.dundun.dataBase.MyDataBaseHelper;
 import edu.hebut.dundun.entity.RemindText;
 import edu.hebut.dundun.entity.RemindTextAdapter;
 
@@ -35,8 +30,6 @@ public class RemindTextSettingActivity extends AppCompatActivity {
     private List<RemindText> remindTexts = new ArrayList<RemindText>();
 
     private RemindTextAdapter remindTextAdapter;
-
-    private MyDataBaseHelper dataBaseHelper;
 
     /**
      * 监听点击删除
@@ -53,7 +46,6 @@ public class RemindTextSettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_remind_text_setting);
-        getDataBaseHelper();
         initList();
         onAddClick();
         onTitleClick();
@@ -114,44 +106,18 @@ public class RemindTextSettingActivity extends AppCompatActivity {
         remindTextAdapter.notifyDataSetChanged();
     }
 
-    private void getDataBaseHelper() {
-        dataBaseHelper = new MyDataBaseHelper(this, "DunDun.db", null, 1);
-        dataBaseHelper.getWritableDatabase();
-    }
-
     private void saveRemindText(RemindText remindText) {
-        SQLiteDatabase database = dataBaseHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        //values.put("id", remindText.getId());
-        values.put("title", remindText.getTitle());
-        values.put("remindText", remindText.getText());
-        database.insert("remind_text", null, values);
+        remindText.save();
         Log.d(TAG, "saveData");
     }
 
     private void deleteRemindText(Long id) {
-        SQLiteDatabase database = dataBaseHelper.getWritableDatabase();
-        database.delete("remind_text", "id = ?", new String[]{id.toString()});
+        LitePal.delete(RemindText.class, id);
         Log.d(TAG, "delete");
     }
 
     private void getAllRemindTexts() {
-        SQLiteDatabase database = dataBaseHelper.getWritableDatabase();
-        Cursor cursor = database.query("remind_text", null, null, null, null, null, null);
-        if (cursor.moveToFirst()) {
-            do {
-                RemindText remindText = new RemindText();
-                @SuppressLint("Range") Long id = cursor.getLong(cursor.getColumnIndex("id"));
-                @SuppressLint("Range") String title = cursor.getString(cursor.getColumnIndex("title"));
-                @SuppressLint("Range") String text = cursor.getString(cursor.getColumnIndex("remindText"));
-                Log.d(TAG, "get text" + text);
-                remindText.setId(id);
-                remindText.setTitle(title);
-                remindText.setText(text);
-                remindTexts.add(remindText);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
+        this.remindTexts = LitePal.findAll(RemindText.class);
     }
 
     /**

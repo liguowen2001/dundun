@@ -2,9 +2,6 @@ package edu.hebut.dundun;
 
 
 import android.annotation.SuppressLint;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.text.SimpleDateFormat;
@@ -16,9 +13,10 @@ import android.widget.TextView;
 
 import com.xuexiang.xui.widget.actionbar.TitleBar;
 
+import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Objects;
 
+import edu.hebut.dundun.entity.WaterIntake;
 import edu.hebut.dundun.service.RemindService;
 
 /**
@@ -27,7 +25,7 @@ import edu.hebut.dundun.service.RemindService;
 public class DrinkActivity extends BaseActivity {
 
     private String TAG = "DrinkActivity";
-    private Integer targetWater;
+    private float drinkTarget;
     private Float haveDrunk;
 
     @Override
@@ -48,23 +46,26 @@ public class DrinkActivity extends BaseActivity {
         SharedPreferences.Editor editor = getSharedPreferences("dundun_data",
                 MODE_PRIVATE).edit();
 
-        float weight = preferences.getFloat("weight", 0);
-        int exercise = preferences.getInt("exercise", 0);
+        float drinkTarget = preferences.getFloat("drinkTarget", 3000);
         String day = preferences.getString("day", "0");
         float haveDrunk = preferences.getFloat("haveDrunk", 0);
-        Log.d(TAG, "haveDrunk" + haveDrunk);
+        int drinkTimes = preferences.getInt("drinkTimes", 0);
+
         Date date = new Date();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
-        if (!Objects.equals(dateFormat.format(date), day)) {
+        if (!day.equals(dateFormat.format(date))) {
+            Log.d(TAG, "不相等");
+            saveWaterIntake(day, haveDrunk, drinkTimes);
             haveDrunk = 0;
+            drinkTimes = 0;
             editor.putFloat("haveDrunk", 0);
+            editor.putInt("drinkTimes", drinkTimes);
+            editor.putString("day", dateFormat.format(date));
             editor.apply();
         }
         this.haveDrunk = haveDrunk;
-        this.targetWater = 3000;
+        this.drinkTarget = drinkTarget;
         this.setValue();
-        Log.d(TAG, weight + "  " + exercise);
-
     }
 
     /**
@@ -74,9 +75,14 @@ public class DrinkActivity extends BaseActivity {
     private void setValue() {
         TextView haveDrunkTextView = findViewById(R.id.textView5);
         TextView targetWaterTextView = findViewById(R.id.textView6);
+        TextView drinkRateTextView = findViewById(R.id.textView1);
+
+        BigDecimal b = new BigDecimal(haveDrunk / drinkTarget);
+        float drinkRate = b.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
 
         haveDrunkTextView.setText(this.haveDrunk.toString());
-        targetWaterTextView.setText(this.targetWater.toString());
+        targetWaterTextView.setText(this.drinkTarget + "");
+        drinkRateTextView.setText(drinkRate + "");
     }
 
     private void onCubClick() {
@@ -121,6 +127,15 @@ public class DrinkActivity extends BaseActivity {
     private void startService() {
         Intent intent = new Intent(this, RemindService.class);
         startService(intent);
+    }
+
+    private void saveWaterIntake(String day, float value, int drinkTimes) {
+        Log.d(TAG, "saveWaterIntake");
+        WaterIntake waterIntake = new WaterIntake();
+        waterIntake.setDate(day);
+        waterIntake.setDrinkTimes(drinkTimes);
+        waterIntake.setValue(value);
+        waterIntake.save();
     }
 
 }
