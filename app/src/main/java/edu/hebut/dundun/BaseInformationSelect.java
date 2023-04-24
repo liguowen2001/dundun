@@ -16,6 +16,7 @@ import com.github.gzuliyujiang.wheelview.widget.WheelView;
 import com.xuexiang.xui.widget.actionbar.TitleBar;
 import com.xuexiang.xui.widget.picker.RulerView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -134,6 +135,9 @@ public class BaseInformationSelect extends AppCompatActivity {
      * @return 饮水量
      */
     private float getDrinkTarget(float weight, int exercise) {
-        return weight * 30 * (1 + (float) exercise * 5 / 100);
+        float f = weight * 30 * (1 + (float) exercise * 5 / 100);
+        BigDecimal b = new BigDecimal(f);
+        float f1 = b.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
+        return f1;
     }
 }

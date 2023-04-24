@@ -28,8 +28,10 @@ import java.util.Date;
 public class WaterActivity extends AppCompatActivity {
 
     private final String TAG = "WaterActivity";
-    private int addOrReduce = 0;
+    private float addOrReduce = 0;
     private View selectedView;
+    private float haveDrunk;
+    private int drinkTimes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,22 +48,23 @@ public class WaterActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MaterialEditText materialEditText = findViewById(R.id.waterVolume);
-                float haveDrunk = Float.parseFloat(materialEditText.getEditValue());
+                getHaveDrunk();
                 SharedPreferences preferences = getSharedPreferences("dundun_data", MODE_PRIVATE);
                 SharedPreferences.Editor editor = getSharedPreferences("dundun_data",
                         MODE_PRIVATE).edit();
                 String day = preferences.getString("day", "");
                 Date date = new Date();
-                @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat=new SimpleDateFormat("YYYY-MM-dd");
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
                 if (day.equals(dateFormat.format(date))) {
                     haveDrunk += preferences.getFloat("haveDrunk", 0);
+                    drinkTimes = preferences.getInt("drinkTimes", 0) + 1;
+
                 } else {
                     editor.putString("day", dateFormat.format(date));
                 }
                 editor.putFloat("haveDrunk", haveDrunk);
+                editor.putInt("drinkTimes", drinkTimes);
                 editor.apply();
-
                 Log.d(TAG, "haveDrunk" + preferences.getFloat("haveDrunk", 0));
                 WaterActivity.this.finish();
             }
@@ -144,34 +147,32 @@ public class WaterActivity extends AppCompatActivity {
                     break;
                 case 1:
                     setColor(v);
+                    addOrReduce = 1;
                     break;
                 case 2:
+                case 6:
                     setColor(v);
-                    addOrReduce = 2;
+                    addOrReduce = 0.86F;
                     break;
                 case 3:
                     setColor(v);
-                    addOrReduce = 3;
+                    addOrReduce = 0.9F;
                     break;
                 case 4:
                     setColor(v);
-                    addOrReduce = 4;
+                    addOrReduce = -0.6F;
                     break;
                 case 5:
                     setColor(v);
-                    addOrReduce = 5;
-                    break;
-                case 6:
-                    setColor(v);
-                    addOrReduce = 6;
+                    addOrReduce = -3;
                     break;
                 case 7:
                     setColor(v);
-                    addOrReduce = 7;
+                    addOrReduce = 0.88F;
                     break;
                 case 8:
                     setColor(v);
-                    addOrReduce = 8;
+                    addOrReduce = -1.8F;
                     break;
             }
         }
@@ -183,6 +184,11 @@ public class WaterActivity extends AppCompatActivity {
             v.setBackgroundColor(Color.parseColor("#96CBFD"));
             selectedView = v;
         }
+    }
+
+    private void getHaveDrunk() {
+        MaterialEditText materialEditText = findViewById(R.id.waterVolume);
+        haveDrunk = Float.parseFloat(materialEditText.getEditValue()) * addOrReduce;
     }
 
     public void onTitleClick() {

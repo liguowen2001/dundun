@@ -82,7 +82,7 @@ public class DrinkActivity extends BaseActivity {
 
         haveDrunkTextView.setText(this.haveDrunk.toString());
         targetWaterTextView.setText(this.drinkTarget + "");
-        drinkRateTextView.setText(drinkRate + "");
+        drinkRateTextView.setText(drinkRate + "%");
     }
 
     private void onCubClick() {

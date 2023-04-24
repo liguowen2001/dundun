@@ -8,21 +8,32 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.IBinder;
-import android.os.SystemClock;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import org.litepal.LitePal;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import edu.hebut.dundun.DrinkActivity;
 import edu.hebut.dundun.R;
+import edu.hebut.dundun.entity.RemindText;
 
 public class RemindService extends Service {
 
     private String TAG = "RemindService";
+    private double firstRemindTime;
+    private double finalRemindTime;
+    private double intervalTime;
+    private int intervalMillis;
+    private Long oneHour = 60 * 60 * 1000L;
+    private RemindText remindText;
 
     @Override
     public void onCreate() {
@@ -32,9 +43,13 @@ public class RemindService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "startService");
-        remind();
-        repeat();
-        stopSelf();
+        getRemindText();
+        getData();
+        SharedPreferences preferences = getSharedPreferences("dundun_data", MODE_PRIVATE);
+        if (preferences.getBoolean("isRemind", false)) {
+            repeat();
+            remind();
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -56,8 +71,8 @@ public class RemindService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         String channelId = createNotificationChannel("my_channel_ID", "my_channel_NAME", NotificationManager.IMPORTANCE_HIGH);
         NotificationCompat.Builder notification = new NotificationCompat.Builder(this, channelId)
-                .setContentTitle("通知")
-                .setContentText("收到一条消息")
+                .setContentTitle(remindText.getTitle())
+                .setContentText(remindText.getText())
                 .setContentIntent(pendingIntent)
                 .setSmallIcon(R.drawable.drop)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -76,8 +91,8 @@ public class RemindService extends Service {
 
     @SuppressLint("ShortAlarm")
     private void repeat() {
+        updateIntervalMillis();
         Log.d(TAG, "repeat");
-        int intervalMillis = 500000;
         Intent i = new Intent();
         i.setClass(this, RemindService.class);
         PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
@@ -89,13 +104,12 @@ public class RemindService extends Service {
 
     /**
      * 读数据
-     *
-     * @param name 数据名称
-     * @return 返回数据值
      */
-    private String getData(String name) {
+    private void getData() {
         SharedPreferences preferences = getSharedPreferences("dundun_data", MODE_PRIVATE);
-        return preferences.getString(name, "");
+        firstRemindTime = timeStringToDouble(preferences.getString("firstRemindTime", "8:00"));
+        finalRemindTime = timeStringToDouble(preferences.getString("finalRemindTime", "22:00"));
+        intervalTime = timeStringToDouble(preferences.getString("intervalTime", "2小时"));
     }
 
     /**
@@ -118,6 +132,49 @@ public class RemindService extends Service {
         }
         Log.d(TAG, floatTime + "");
         return floatTime;
+    }
+
+    private void updateIntervalMillis() {
+
+        Date date = new Date();
+        @SuppressLint("SimpleDateFormat") android.icu.text.SimpleDateFormat dateFormat = new android.icu.text.SimpleDateFormat("YYYY-MM-dd");
+        Long time = date2TimeStamp(dateFormat.format(date), "yyyy-MM-dd");
+        Log.d(TAG, date.getTime() + "");
+        Log.d(TAG, time + (int) (finalRemindTime * oneHour) + "");
+        if (date.getTime() < time + firstRemindTime * oneHour) {
+            intervalMillis = (int) (time + firstRemindTime * oneHour - date.getTime());
+        } else if (date.getTime() < (int) (finalRemindTime * oneHour)) {
+            if (date.getTime() + intervalTime * oneHour > firstRemindTime) {
+                intervalMillis = (int) (time + finalRemindTime * oneHour - date.getTime());
+            } else {
+                intervalMillis = (int) (intervalTime * oneHour);
+            }
+        } else {
+            intervalMillis = (int) (time + 24 * oneHour - date.getTime() + firstRemindTime * oneHour);
+        }
+        Log.d(TAG, intervalMillis + "");
+    }
+
+    public static Long date2TimeStamp(String date_str, String format) {
+        try {
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat(format);
+            return sdf.parse(date_str).getTime();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0L;
+    }
+
+    private void getRemindText() {
+        List<RemindText> remindTexts = LitePal.findAll(RemindText.class);
+        if (remindTexts.isEmpty()) {
+            RemindText remindText = new RemindText();
+            remindText.setTitle("喝水提醒");
+            remindText.setText("该喝水了！");
+            this.remindText = remindText;
+        } else {
+            remindText = remindTexts.get((int) (Math.random() * remindTexts.size()));
+        }
     }
 
 

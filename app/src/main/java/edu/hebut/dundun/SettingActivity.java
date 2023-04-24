@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.xuexiang.xui.widget.actionbar.TitleBar;
+import com.xuexiang.xui.widget.button.switchbutton.SwitchButton;
 
 import java.util.Objects;
 
@@ -33,16 +34,18 @@ public class SettingActivity extends AppCompatActivity {
     private ConstraintLayout intervalTime;
     private ConstraintLayout selectedConstraintLayout;
     private String name = "firstRemindTime";
+    private boolean isRemind = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-        setRemindItem();
+        initView();
         this.onRemindItemClick();
         onTitleClick();
         onSetRemindTextClick();
         onStatisticsClick();
+        onSwitchButtonClick();
     }
 
     /**
@@ -83,7 +86,7 @@ public class SettingActivity extends AppCompatActivity {
     /**
      * 初始化
      */
-    private void setRemindItem() {
+    private void initView() {
         String firstRemindTime = getData("firstRemindTime");
         String finalRemindTime = getData("finalRemindTime");
         String intervalTime = getData("intervalTime");
@@ -105,6 +108,11 @@ public class SettingActivity extends AppCompatActivity {
         setValue("第一杯水时间", "建议设置为您的起床时间", firstRemindTime, this.firstRemind);
         setValue("最后一次提醒时间", "建议设置为您睡觉的前半个小时", finalRemindTime, this.finalRemind);
         setValue("每隔多久提醒", times, intervalTime, this.intervalTime);
+
+        SharedPreferences preferences = getSharedPreferences("dundun_data", MODE_PRIVATE);
+        isRemind = preferences.getBoolean("isRemind", false);
+        SwitchButton switchButton = findViewById(R.id.switchButton3);
+        switchButton.setChecked(isRemind);
     }
 
     /**
@@ -260,8 +268,8 @@ public class SettingActivity extends AppCompatActivity {
         titleBar.addAction(new TitleBar.ImageAction(R.drawable.pen32) {
             @Override
             public void performAction(View view) {
-                Log.d(TAG,"clickPen");
-                Intent intent = new Intent(SettingActivity.this,BaseInformationSelect.class);
+                Log.d(TAG, "clickPen");
+                Intent intent = new Intent(SettingActivity.this, BaseInformationSelect.class);
                 startActivity(intent);
             }
         });
@@ -274,26 +282,39 @@ public class SettingActivity extends AppCompatActivity {
         });
     }
 
-    private void onSetRemindTextClick(){
+    private void onSetRemindTextClick() {
         TextView textView = findViewById(R.id.textView8);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SettingActivity.this,RemindTextSettingActivity.class);
+                Intent intent = new Intent(SettingActivity.this, RemindTextSettingActivity.class);
                 startActivity(intent);
             }
         });
     }
 
-    private void onStatisticsClick(){
+    private void onStatisticsClick() {
         TextView textView = findViewById(R.id.textView7);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SettingActivity.this,StatisticsActivity.class);
+                Intent intent = new Intent(SettingActivity.this, StatisticsActivity.class);
                 startActivity(intent);
             }
         });
     }
 
+    private void onSwitchButtonClick() {
+        SwitchButton switchButton = findViewById(R.id.switchButton3);
+        switchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor editor = getSharedPreferences("dundun_data",
+                        MODE_PRIVATE).edit();
+                isRemind = !isRemind;
+                editor.putBoolean("isRemind", isRemind);
+                editor.apply();
+            }
+        });
+    }
 }
