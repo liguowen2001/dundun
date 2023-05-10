@@ -176,6 +176,4 @@ public class RemindService extends Service {
             remindText = remindTexts.get((int) (Math.random() * remindTexts.size()));
         }
     }
-
-
 }

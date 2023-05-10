@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import org.litepal.LitePal;
@@ -25,6 +27,7 @@ import lecho.lib.hellocharts.view.LineChartView;
 
 public class StatisticsActivity extends AppCompatActivity {
 
+    private String TAG = "StatisticsActivity";
     List<PointValue> values = new ArrayList<PointValue>();//折线上的点
     List<AxisValue> axisXValues = new ArrayList<AxisValue>();
     float averageDrink = 0;
@@ -79,11 +82,20 @@ public class StatisticsActivity extends AppCompatActivity {
                 }
             }
 
-        } else {
+        } else if (waterIntakes.size() != 0) {
+
             for (int i = 0; i < length; i++) {
                 values.add(new PointValue(i, waterIntakes.get(i).getValue()));
                 axisXValues.add(new AxisValue(i, waterIntakes.get(i).getSimpleDate().toCharArray()));
             }
+        } else {
+            Log.d(TAG,"没有数据");
+            values.add(new PointValue(0, 0));
+            values.add(new PointValue(1, 1));
+            String label = "0";
+            axisXValues.add(new AxisValue(0, label.toCharArray()));
+            axisXValues.add(new AxisValue(0, label.toCharArray()));
+            return;
         }
 
         SharedPreferences preferences = getSharedPreferences("dundun_data", MODE_PRIVATE);
